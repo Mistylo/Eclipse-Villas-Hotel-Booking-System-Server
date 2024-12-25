@@ -8,8 +8,11 @@ import com.daliycode.HotelBookingSystem.response.BookingResponse;
 import com.daliycode.HotelBookingSystem.response.RoomResponse;
 import com.daliycode.HotelBookingSystem.service.BookingServiceImpl;
 import com.daliycode.HotelBookingSystem.service.IRoomService;
+import com.daliycode.HotelBookingSystem.cache.RedisCacheService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +32,7 @@ import java.util.Optional;
 
 
 
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/rooms")
@@ -36,6 +40,7 @@ import java.util.Optional;
 public class RoomController {
     private final IRoomService roomService;
     private final BookingServiceImpl bookingService;
+    private final RedisCacheService redisCacheService;
     @PostMapping("/add/new-room")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<RoomResponse> addNewRoom(
@@ -64,6 +69,7 @@ public class RoomController {
     }
 
     @GetMapping("/room/types")
+    @Cacheable(value = "rooms", key = "'allRooms'")
     public List<String> getRoomTypes(){
         return roomService.getAllRoomTypes();
     }
@@ -91,6 +97,7 @@ public class RoomController {
 
 
     @GetMapping("/room/{roomId}")
+    @Cacheable(value = "rooms", key = "#roomId")
     public ResponseEntity<RoomResponse> getRoomById(@PathVariable Long roomId) {
         try {
             Optional<Room> theRoom = roomService.getRoomById(roomId);
@@ -109,6 +116,7 @@ public class RoomController {
 
     @DeleteMapping("/delete/room/{roomId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @CacheEvict(value = "rooms", key = "#roomId")
     public ResponseEntity<Void> deleteRoom(@PathVariable Long roomId){
         roomService.deleteRoom(roomId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -130,6 +138,7 @@ public class RoomController {
     }
 
     @GetMapping("/available-rooms")
+    @Cacheable(value = "availableRooms", key = "#checkInDate + '-' + #checkOutDate + '-' + #roomType")
     public ResponseEntity<List<RoomResponse>> getAvailableRooms(
             @RequestParam("checkInDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkInDate,
             @RequestParam("checkOutDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkOutDate,
