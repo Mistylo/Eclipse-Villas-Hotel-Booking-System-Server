@@ -10,6 +10,7 @@ import com.daliycode.HotelBookingSystem.security.jwt.JwtUtils;
 import com.daliycode.HotelBookingSystem.service.IBookingService;
 import com.daliycode.HotelBookingSystem.service.IRoomService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,8 @@ public class BookingController {
     private final IBookingService bookingService;
     private final IRoomService roomService;
     private final JwtUtils jwtUtils;
+    private final RedisTemplate<String, String> redisTemplate;
+
 
     @GetMapping("/all-bookings")
     public ResponseEntity<List<BookingResponse>> getAllBookings() {
