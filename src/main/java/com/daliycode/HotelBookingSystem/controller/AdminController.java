@@ -17,14 +17,12 @@ public class AdminController {
     @Autowired
     private UserServiceImpl userServiceImpl;
 
-    // 假设你已经知道了 userId 和 adminRoleId
     @PostMapping("/assign-admin/{userId}")
     public ResponseEntity<User> assignAdminRole(@PathVariable Long userId) {
-        // 假设 admin 角色的 ID 是 1
+
         Long adminRoleId = 1L;
 
         try {
-            // 调用 UserService 的方法来分配 admin 角色
             User updatedUser = userServiceImpl.assignRoleToUser(userId, adminRoleId);
             return ResponseEntity.ok(updatedUser);
         } catch (Exception e) {
