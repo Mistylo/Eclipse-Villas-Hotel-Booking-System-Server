@@ -55,7 +55,7 @@ public class AuthController {
         Date refreshTokenExpiration = jwtUtils.getExpirationDateFromToken(refreshToken);
 
 
-        // 处理过期的 refreshToken
+        // Handle expired refreshToken
         User user = userService.getUserOrElseThrow(((HotelUserDetails) authentication.getPrincipal()).getUsername());
         if (user.getRefreshToken() != null && isTokenExpired(user.getRefreshToken())) {
             user.setRefreshToken(null); // Clear old refresh token
