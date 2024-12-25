@@ -25,26 +25,22 @@ public class StartupRoleAssignmentService {
     }
 
     public boolean isRoleAssignedToUser(Long userId, Long roleId) {
-        // 使用 existsByUserIdAndRoleId 检查 user_role 表中是否已经存在绑定关系
         return userRepository.existsByUserIdAndRoleId(userId, roleId);
     }
 
     @PostConstruct
     public void assignRoleToUser() {
-        Long userId = 5L;  // 假设 admin 用户的 ID 是 5
-        Long roleId = 2L;  // 假设 admin 角色的 ID 是 2
+        Long userId = 5L; 
+        Long roleId = 2L;  
 
-        // 检查角色是否已分配给用户
         if (!isRoleAssignedToUser(userId, roleId)) {
-            // 如果没有绑定，才进行角色分配
+
             Optional<User> userOptional = userRepository.findById(userId);
             Optional<Role> roleOptional = roleRepository.findById(roleId);
 
             if (userOptional.isPresent() && roleOptional.isPresent()) {
                 User user = userOptional.get();
                 Role role = roleOptional.get();
-
-                // 为用户添加角色
                 user.getRoles().add(role);
                 userRepository.save(user);
 
