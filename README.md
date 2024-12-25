@@ -35,7 +35,7 @@ A web-based hotel booking system with advanced features, improved UI, and additi
 ### Architecture Diagram
 Below is the high-level architecture of the system:
 
-![Architecture Diagram](![HotelBookingSystem drawio](https://github.com/user-attachments/assets/1211a5fc-c162-4b99-ad6c-21324822d193)
+(![HotelBookingSystem drawio](https://github.com/user-attachments/assets/1211a5fc-c162-4b99-ad6c-21324822d193)
 ()
 )
 
