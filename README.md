@@ -5,7 +5,7 @@ A web-based hotel booking system with advanced features, improved UI, and additi
 ---
 
 ## Demo
-![Demo](https://via.placeholder.com/150)
+
 [Watch Demo on YouTube](https://youtu.be/5wwsdfWxGfo)
 
 ---
