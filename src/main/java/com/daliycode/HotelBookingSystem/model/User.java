@@ -36,7 +36,6 @@ public class User implements UserDetails {
     // Realize UserDetails interface
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // 将角色名称转换为 GrantedAuthority
         return roles.stream()
                 // Return a new GrantedAuthority object with the role name as the authority
                 .map(role -> (GrantedAuthority) () -> role.getName())
