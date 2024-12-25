@@ -35,7 +35,8 @@ A web-based hotel booking system with advanced features, improved UI, and additi
 ### Architecture Diagram
 Below is the high-level architecture of the system:
 
-![Architecture Diagram](![HotelBookingSystem drawio](https://github.com/user-attachments/assets/48866cab-06f5-4628-a4ab-35aba3af9d02)
+![Architecture Diagram](![HotelBookingSystem drawio](https://github.com/user-attachments/assets/1211a5fc-c162-4b99-ad6c-21324822d193)
+()
 )
 
 1. **Front-End**: Built with React and Vite, interacting with the back-end using Axios.
