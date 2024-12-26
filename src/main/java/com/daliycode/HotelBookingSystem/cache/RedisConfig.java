@@ -25,7 +25,6 @@ public class RedisConfig {
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
-        // 这里使用 Lettuce 连接工厂，你也可以使用 Jedis 连接工厂
         return new LettuceConnectionFactory();
     }
 }
